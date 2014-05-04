@@ -21,7 +21,16 @@ angular.module('UserApp.facebook-picture', []).
 						if (!error) {
 							for (var i = 0; i < result.items.length; ++i) {
 								if (result.items[i].provider_id == 'facebook') {
-									var url = 'http://graph.facebook.com/' + result.items[i].provider_user_data.id + '/picture';
+									var url = 'http://graph.facebook.com/' + result.items[i].provider_user_data.id + '/picture?type=' + (attrs.uaFacebookPicture || 'small');
+
+									if (attrs.width) {
+										url += '&width=' + attrs.width;
+									}
+
+									if (attrs.height) {
+										url += '&height=' + attrs.height;
+									}
+
 									user.avatarCache[user.current.user_id] = url;
 									callback(url);
 									return;
